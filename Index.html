@@ -3,216 +3,157 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Replica Finder</title>
 
   <style>
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     body {
-      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      font-family: Arial, sans-serif;
       background: #0b0b0b;
-      color: #fff;
+      color: white;
     }
 
     header {
-      padding: 22px 5%;
+      padding: 20px;
+      text-align: center;
       border-bottom: 1px solid #222;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: sticky;
-      top: 0;
-      background: rgba(11,11,11,0.95);
-      z-index: 10;
     }
 
-    .logo {
-      font-size: 24px;
-      font-weight: 800;
-      letter-spacing: -1px;
-    }
-
-    nav a {
-      color: #aaa;
-      text-decoration: none;
-      margin-left: 22px;
-      font-size: 14px;
-    }
-
-    nav a:hover {
-      color: white;
-    }
-
-    .hero {
-      padding: 70px 5% 45px;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .hero h1 {
-      font-size: clamp(38px, 7vw, 72px);
-      line-height: 0.95;
-      letter-spacing: -3px;
-      max-width: 750px;
-    }
-
-    .hero p {
-      color: #999;
-      margin-top: 22px;
-      font-size: 16px;
-      max-width: 600px;
-      line-height: 1.6;
-    }
-
-    .search {
-      margin-top: 30px;
-      width: 100%;
-      max-width: 600px;
-      padding: 16px 18px;
-      background: #151515;
-      border: 1px solid #292929;
-      border-radius: 10px;
-      color: white;
-      outline: none;
-      font-size: 15px;
-    }
-
-    .section {
-      padding: 25px 5% 70px;
-      max-width: 1300px;
-      margin: auto;
-    }
-
-    .section-title {
+    h1 {
+      margin: 0;
       font-size: 28px;
-      margin-bottom: 25px;
     }
 
-    .filters {
+    .subtitle {
+      color: #888;
+      margin-top: 6px;
+    }
+
+    nav {
       display: flex;
+      justify-content: center;
       gap: 10px;
+      padding: 15px;
       flex-wrap: wrap;
-      margin-bottom: 30px;
     }
 
-    .filter {
-      padding: 9px 15px;
-      border-radius: 999px;
+    button {
+      background: #181818;
+      color: white;
       border: 1px solid #333;
-      background: #141414;
-      color: #bbb;
+      padding: 10px 16px;
+      border-radius: 8px;
       cursor: pointer;
     }
 
-    .filter.active,
-    .filter:hover {
-      background: white;
-      color: black;
+    button:hover {
+      background: #252525;
     }
 
-    .grid {
+    .search {
+      display: block;
+      width: 90%;
+      max-width: 600px;
+      margin: 10px auto 25px;
+      padding: 13px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: #151515;
+      color: white;
+      font-size: 16px;
+    }
+
+    #products {
+      width: 92%;
+      max-width: 1200px;
+      margin: auto;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 18px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding-bottom: 50px;
     }
 
     .card {
-      background: #121212;
-      border: 1px solid #222;
-      border-radius: 14px;
+      background: #141414;
+      border: 1px solid #262626;
+      border-radius: 12px;
       overflow: hidden;
-      transition: 0.2s;
     }
 
-    .card:hover {
-      transform: translateY(-3px);
-      border-color: #444;
-    }
-
-    .card-image {
-      height: 260px;
+    .product-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
       background: #1b1b1b;
+    }
+
+    .no-image {
+      height: 250px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: #666;
-      font-size: 13px;
     }
 
-    .card-content {
-      padding: 17px;
+    .info {
+      padding: 15px;
     }
 
     .brand {
-      color: #888;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
+      color: #999;
+      font-size: 13px;
     }
 
     .name {
-      font-size: 17px;
-      font-weight: 700;
-      margin-top: 7px;
+      font-size: 18px;
+      margin: 6px 0;
     }
 
     .seller {
-      color: #aaa;
-      margin-top: 8px;
-      font-size: 13px;
+      color: #bbb;
+      font-size: 14px;
     }
 
-    .status {
+    .badge {
       display: inline-block;
-      margin-top: 12px;
-      font-size: 12px;
+      margin-top: 10px;
       padding: 5px 8px;
-      border-radius: 5px;
-      background: #17351f;
-      color: #75d98d;
+      border-radius: 6px;
+      background: #222;
+      font-size: 12px;
     }
 
-    .button {
+    .available {
+      color: #6ee7a0;
+    }
+
+    .unavailable {
+      color: #ff7777;
+    }
+
+    .view {
       display: block;
+      margin-top: 14px;
       text-align: center;
-      margin-top: 15px;
-      padding: 11px;
-      border-radius: 8px;
+      padding: 10px;
       background: white;
       color: black;
       text-decoration: none;
-      font-weight: 700;
-      font-size: 13px;
+      border-radius: 7px;
+      font-weight: bold;
     }
 
-    footer {
-      border-top: 1px solid #222;
-      padding: 30px 5%;
-      color: #666;
-      font-size: 12px;
+    #loading,
+    #error,
+    #empty {
       text-align: center;
-    }
-
-    @media (max-width: 600px) {
-      header {
-        padding: 18px 5%;
-      }
-
-      nav {
-        display: none;
-      }
-
-      .hero {
-        padding-top: 50px;
-      }
-
-      .card-image {
-        height: 220px;
-      }
+      color: #888;
+      padding: 40px;
     }
   </style>
 </head>
@@ -220,156 +161,185 @@
 <body>
 
 <header>
-  <div class="logo">FINDER</div>
-
-  <nav>
-    <a href="#">Home</a>
-    <a href="#best">Best Sellers</a>
-    <a href="#budget">Budget</a>
-  </nav>
+  <h1>Replica Finder</h1>
+  <div class="subtitle">Find the best sellers & budget finds</div>
 </header>
 
-<section class="hero">
-  <h1>Find the best sellers.</h1>
+<nav>
+  <button onclick="setCategory('ALL')">All</button>
+  <button onclick="setCategory('Best Sellers')">Best Sellers</button>
+  <button onclick="setCategory('Budget')">Budget</button>
+  <button onclick="setBrand('Chrome Hearts')">Chrome Hearts</button>
+</nav>
 
-  <p>
-    A simple directory for discovering products, sellers and updated source links.
-  </p>
+<input
+  id="search"
+  class="search"
+  type="text"
+  placeholder="Search products..."
+  oninput="renderProducts()"
+>
 
-  <input
-    id="search"
-    class="search"
-    type="text"
-    placeholder="Search products, brands or sellers..."
-  >
-</section>
+<div id="loading">Loading products...</div>
 
-<section class="section" id="best">
+<div id="error" style="display:none;">
+  Could not load products.
+</div>
 
-  <h2 class="section-title">Best Sellers</h2>
+<div id="empty" style="display:none;">
+  No products found.
+</div>
 
-  <div class="filters">
-    <button class="filter active" onclick="filterProducts('all', this)">All</button>
-    <button class="filter" onclick="filterProducts('Chrome Hearts', this)">Chrome Hearts</button>
-  </div>
-
-  <div id="products" class="grid"></div>
-
-</section>
-
-<footer>
-  Product links are provided for reference. Always verify availability before purchasing.
-</footer>
+<div id="products"></div>
 
 <script>
 
-const products = [
+const API_URL =
+  "https://soft-firefly-59b3.hshhhj535.workers.dev/api/products";
 
-  {
-    name: "Chrome Hearts Product 01",
-    brand: "Chrome Hearts",
-    seller: "TopHotFashion",
-    tier: "Best Seller",
-    status: "Available",
-    image: "",
-    url: "https://tophotfashion.x.yupoo.com/albums/257400405?uid=1&isSubCate=false&referrercate=4644883"
+let allProducts = [];
+let currentCategory = "ALL";
+let currentBrand = "ALL";
+
+async function loadProducts() {
+
+  try {
+
+    const response = await fetch(API_URL);
+
+    if (!response.ok) {
+      throw new Error("API error");
+    }
+
+    allProducts = await response.json();
+
+    document.getElementById("loading").style.display = "none";
+
+    renderProducts();
+
+  } catch (error) {
+
+    console.error(error);
+
+    document.getElementById("loading").style.display = "none";
+    document.getElementById("error").style.display = "block";
+
   }
 
-];
+}
 
-let currentFilter = "all";
+function setCategory(category) {
 
-function displayProducts() {
+  currentCategory = category;
+
+  renderProducts();
+
+}
+
+function setBrand(brand) {
+
+  currentBrand = brand;
+
+  renderProducts();
+
+}
+
+function renderProducts() {
 
   const container = document.getElementById("products");
-  const search = document.getElementById("search").value.toLowerCase();
+  const search = document
+    .getElementById("search")
+    .value
+    .toLowerCase();
 
   container.innerHTML = "";
 
-  products
-    .filter(product => {
+  const filtered = allProducts.filter(product => {
 
-      const matchesFilter =
-        currentFilter === "all" ||
-        product.brand === currentFilter;
+    const matchesCategory =
+      currentCategory === "ALL" ||
+      product.category === currentCategory;
 
-      const matchesSearch =
-        product.name.toLowerCase().includes(search) ||
-        product.brand.toLowerCase().includes(search) ||
-        product.seller.toLowerCase().includes(search);
+    const matchesBrand =
+      currentBrand === "ALL" ||
+      product.brand === currentBrand;
 
-      return matchesFilter && matchesSearch;
+    const matchesSearch =
+      !search ||
+      (product.name || "").toLowerCase().includes(search) ||
+      (product.brand || "").toLowerCase().includes(search) ||
+      (product.seller_name || "").toLowerCase().includes(search);
 
-    })
-    .forEach(product => {
+    return matchesCategory &&
+           matchesBrand &&
+           matchesSearch;
 
-      const card = document.createElement("div");
+  });
 
-      card.className = "card";
+  document.getElementById("empty").style.display =
+    filtered.length === 0 ? "block" : "none";
 
-      card.innerHTML = `
+  filtered.forEach(product => {
 
-        <div class="card-image">
-          ${
-            product.image
-              ? `<img src="${product.image}" style="width:100%;height:100%;object-fit:cover;">`
-              : "Product Image"
-          }
+    const card = document.createElement("div");
+
+    card.className = "card";
+
+    const image = product.image_url
+      ? `<img class="product-image" src="${product.image_url}" alt="">`
+      : `<div class="no-image">No image yet</div>`;
+
+    const availabilityClass =
+      product.availability === "AVAILABLE"
+        ? "available"
+        : "unavailable";
+
+    card.innerHTML = `
+
+      ${image}
+
+      <div class="info">
+
+        <div class="brand">
+          ${product.brand || ""}
         </div>
 
-        <div class="card-content">
-
-          <div class="brand">
-            ${product.brand}
-          </div>
-
-          <div class="name">
-            ${product.name}
-          </div>
-
-          <div class="seller">
-            Seller: ${product.seller}
-          </div>
-
-          <span class="status">
-            ${product.status}
-          </span>
-
-          <a
-            class="button"
-            href="${product.url}"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            View Product
-          </a>
-
+        <div class="name">
+          ${product.name || "Unnamed Product"}
         </div>
-      `;
 
-      container.appendChild(card);
+        <div class="seller">
+          Seller: ${product.seller_name || "Unknown"}
+        </div>
 
-    });
+        <div class="badge">
+          ${product.seller_tier || ""}
+        </div>
+
+        <div class="badge ${availabilityClass}">
+          ${product.availability || "UNKNOWN"}
+        </div>
+
+        <a
+          class="view"
+          href="${product.product_url}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View Product
+        </a>
+
+      </div>
+
+    `;
+
+    container.appendChild(card);
+
+  });
+
 }
 
-function filterProducts(filter, button) {
-
-  currentFilter = filter;
-
-  document
-    .querySelectorAll(".filter")
-    .forEach(btn => btn.classList.remove("active"));
-
-  button.classList.add("active");
-
-  displayProducts();
-}
-
-document
-  .getElementById("search")
-  .addEventListener("input", displayProducts);
-
-displayProducts();
+loadProducts();
 
 </script>
 
